@@ -3,4 +3,8 @@ export default class project {
         this.name = name;
         this.items = [];
     }
+
+    addItem(item) {
+        this.items.push(item);
+    }
 }
