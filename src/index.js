@@ -1,9 +1,9 @@
-import todoItem from "./classes/todo-item";
 import project from "./classes/project";
+import todoItem from "./classes/todo-item";
 
 function todoController() {
-    const defaultProject = new project('default');
-    const myProjects = [defaultProject];
+    const myTodos = [];
+    const myProjects = [];
 
     function createProject(projectName) {
         const newProject = new project(projectName);
@@ -12,23 +12,48 @@ function todoController() {
 
     function displayProjects() {
         console.log(myProjects);
+        return myProjects;
     }
 
-    function deleteProject(projectName) {
-        const projectIndex = myProjects.map(p => p.name).indexOf(projectName);
-        myProjects.splice(projectIndex, 1);
+    function deleteProject(projectId) {
+        const pIndex = myProjects.map(p => p.id).indexOf(projectId);
+        myProjects.splice(pIndex, 1);
     }
 
-    function addTodoItem(project, item) {
-        const newItem = new todoItem(item.title, item.description, item.dueDate, item.priority)
-        const projectIndex = myProjects.map(p => p.name).indexOf(project);
-        myProjects[projectIndex].addItem(newItem);
+    function addTodoItem(item) {
+        const newTodo = new todoItem(item.title, item.description, item.dueDate, item.priority, item.project)
+        myTodos.push(newTodo);
     }
 
-    function removeTodoItem(project, itemTitle) {
-        const projectIndex = myProjects.map(p => p.name).indexOf(project);
-        myProjects[projectIndex].removeItem(itemTitle);
+    function getTodoIndex(todoId) {
+        return myTodos.map(todo => todo.id).indexOf(todoId);
+    }
 
+    function displayTodoItems(project) {
+        if (project !== undefined) {
+            const filteredTodos = myTodos.filter(todo => todo.project === project)
+            console.log(filteredTodos);
+            return filteredTodos;
+        } else {
+            console.log(myTodos);
+            return myTodos;
+        }
+    }
+
+    function getTodoItem(todoId) {
+        const todoIndex = getTodoIndex(todoId);
+        console.log(myTodos[todoIndex]);
+        return myTodos[todoIndex];
+    }
+
+    function markTodoDone(todoId) {
+        const todoIndex = getTodoIndex(todoId);
+        myTodos[todoIndex].markDone();
+    }
+
+    function removeTodoItem(itemId) {
+        const todoIndex = getTodoIndex(itemId);
+        myTodos.splice(todoIndex, 1);
     }
 
     return {
@@ -36,15 +61,19 @@ function todoController() {
         displayProjects,
         deleteProject,
         addTodoItem,
-        removeTodoItem
+        displayTodoItems,
+        getTodoItem,
+        markTodoDone,
+        removeTodoItem,
     }
 }
 
-const myitem = {
+const myItem = {
     title: 'Faire les courses',
     description: 'Plein de choses',
     dueDate: 'demain',
-    priority: 'modérée'
+    priority: 'modérée',
+    project: 'newlist1'
 }
 
 const todo = todoController();
@@ -52,7 +81,10 @@ todo.createProject('newlist');
 todo.createProject('newlist1');
 todo.createProject('newlist2');
 todo.createProject('newlist3');
-todo.deleteProject('newlist2');
-todo.displayProjects();
-todo.addTodoItem('newlist1', myitem);
-todo.removeTodoItem('newlist1', 'Faire les courses');
+const pId = todo.displayProjects();
+todo.deleteProject(pId[2].id);
+todo.addTodoItem(myItem);
+const tdId = todo.displayTodoItems()[0].id;
+todo.markTodoDone(tdId);
+todo.displayTodoItems();
+todo.displayTodoItems('newlist');
