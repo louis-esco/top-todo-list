@@ -1,4 +1,5 @@
 import todoController from "./functions/todo-controller";
+import "./styles.css";
 
 const myItem = {
     title: 'Faire les courses',
