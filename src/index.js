@@ -40,18 +40,18 @@ function todoController() {
         }
     }
 
-    function getTodoItem(todoId) {
-        const todoIndex = getTodoIndex(todoId);
-        console.log(myTodos[todoIndex]);
-        return myTodos[todoIndex];
-    }
+    // function getTodoItem(todoId) {
+    //     const todoIndex = getTodoIndex(todoId);
+    //     console.log(myTodos[todoIndex]);
+    //     return myTodos[todoIndex];
+    // }
 
     function markTodoDone(todoId) {
         const todoIndex = getTodoIndex(todoId);
         myTodos[todoIndex].markDone();
     }
 
-    function removeTodoItem(itemId) {
+    function deleteTodoItem(itemId) {
         const todoIndex = getTodoIndex(itemId);
         myTodos.splice(todoIndex, 1);
     }
@@ -62,9 +62,8 @@ function todoController() {
         deleteProject,
         addTodoItem,
         displayTodoItems,
-        getTodoItem,
         markTodoDone,
-        removeTodoItem,
+        deleteTodoItem,
     }
 }
 
@@ -77,14 +76,16 @@ const myItem = {
 }
 
 const todo = todoController();
-todo.createProject('newlist');
-todo.createProject('newlist1');
-todo.createProject('newlist2');
-todo.createProject('newlist3');
-const pId = todo.displayProjects();
-todo.deleteProject(pId[2].id);
-todo.addTodoItem(myItem);
-const tdId = todo.displayTodoItems()[0].id;
-todo.markTodoDone(tdId);
-todo.displayTodoItems();
-todo.displayTodoItems('newlist');
+window.todo = todo;
+
+// todo.createProject('newlist');
+// todo.createProject('newlist1');
+// todo.createProject('newlist2');
+// todo.createProject('newlist3');
+// const pId = todo.displayProjects();
+// todo.deleteProject(pId[2].id);
+// todo.addTodoItem(myItem);
+// const tdId = todo.displayTodoItems()[0].id;
+// todo.markTodoDone(tdId);
+// todo.displayTodoItems();
+// todo.displayTodoItems('newlist');
