@@ -53,3 +53,9 @@ nav {
 .navItem svg {
     padding-top: 4px;
 }
+
+.newProjectBtn {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+}

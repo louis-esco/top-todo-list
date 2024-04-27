@@ -1,3 +1,4 @@
+import projectsList from "./display/projects-list/projects-list";
 import todoController from "./functions/todo-controller";
 import "./styles.css";
 
@@ -9,8 +10,13 @@ const myItem = {
     project: 'newlist1'
 }
 
+
+const projects = projectsList();
+window.projects = projects;
+
 const todo = todoController();
 window.todo = todo;
+
 
 // todo.createProject('newlist');
 // todo.createProject('newlist1');

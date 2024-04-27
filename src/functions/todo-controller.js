@@ -10,7 +10,7 @@ export default function todoController() {
         myProjects.push(newProject);
     }
 
-    function displayProjects() {
+    function getProjects() {
         console.log(myProjects);
         return myProjects;
     }
@@ -29,7 +29,7 @@ export default function todoController() {
         return myTodos.map(todo => todo.id).indexOf(todoId);
     }
 
-    function displayTodoItems(project) {
+    function getTodoItems(project) {
         if (project !== undefined) {
             const filteredTodos = myTodos.filter(todo => todo.project === project)
             console.log(filteredTodos);
@@ -39,12 +39,6 @@ export default function todoController() {
             return myTodos;
         }
     }
-
-    // function getTodoItem(todoId) {
-    //     const todoIndex = getTodoIndex(todoId);
-    //     console.log(myTodos[todoIndex]);
-    //     return myTodos[todoIndex];
-    // }
 
     function markTodoDone(todoId) {
         const todoIndex = getTodoIndex(todoId);
@@ -58,10 +52,10 @@ export default function todoController() {
 
     return {
         createProject,
-        displayProjects,
+        getProjects,
         deleteProject,
         addTodoItem,
-        displayTodoItems,
+        getTodoItems,
         markTodoDone,
         deleteTodoItem,
     }
