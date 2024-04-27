@@ -20,7 +20,7 @@ export default function todoController() {
         myProjects.splice(pIndex, 1);
     }
 
-    function addTodoItem(item) {
+    function createTodoItem(item) {
         const newTodo = new todoItem(item.title, item.description, item.dueDate, item.priority, item.project)
         myTodos.push(newTodo);
     }
@@ -54,7 +54,7 @@ export default function todoController() {
         createProject,
         getProjects,
         deleteProject,
-        addTodoItem,
+        createTodoItem,
         getTodoItems,
         markTodoDone,
         deleteTodoItem,

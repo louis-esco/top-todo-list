@@ -1,12 +1,19 @@
-import todoController from "../../functions/todo-controller";
-import "./projects-list.css"
-import projectIcon from "../../img/project.svg";
-import closeIcon from "../../img/close.svg";
+import todoController from "../functions/todo-controller";
+import "./display.css"
+import projectIcon from "../img/project.svg";
+import closeIcon from "../img/close.svg";
 
-export default function projectsList() {
+export default function displayList() {
     const todo = todoController();
     const myProjects = document.querySelector('.myProjects');
+    const myTodos = document.querySelector('.myTodos');
     const newProjectBtn = document.querySelector('.newProjectBtn');
+    const newTodoBtn = document.querySelector('.addTodoBtn');
+    const todoModal = document.querySelector('.todoFormModal');
+    const todoForm = document.querySelector('.todoForm');
+    const closeModalBtn = document.querySelector('.closeModalBtn');
+    const submitTodoModalBtn = document.querySelector('.submitTodoModal');
+    let activeProject = 'default';
 
     function displayProjects() {
         const projects = todo.getProjects();
@@ -58,6 +65,8 @@ export default function projectsList() {
         projForm.appendChild(cancelBtn);
         myProjects.appendChild(projForm);
 
+        formProjInput.focus();
+
         submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const projName = formProjInput.value;
@@ -79,8 +88,62 @@ export default function projectsList() {
 
     });
 
-    return {
-        displayProjects,
-        createNewProject
+    function displayTodo(project) {
+        const todos = todo.getTodoItems();
+        myTodos.textContent = "";
+
+        for (let td of todos) {
+            const todoItem = document.createElement('div');
+            todoItem.classList.add('todoItem');
+            const todoItemLeft = document.createElement('div');
+            const todoItemRight = document.createElement('button');
+
+            const todoTitle = document.createElement('div');
+            todoTitle.textContent = td.title;
+            const close = new Image();
+            close.src = closeIcon;
+
+            todoItemLeft.appendChild(todoTitle);
+            todoItemRight.appendChild(close);
+            todoItem.appendChild(todoItemLeft);
+            todoItem.appendChild(todoItemRight);
+            myTodos.appendChild(todoItem);
+
+            todoItemRight.addEventListener('click', () => {
+                todo.deleteTodoItem(td.id);
+                displayTodo();
+            })
+        }
+    }
+
+    newTodoBtn.addEventListener('click', () => {
+        todoModal.showModal();
+    })
+
+    closeModalBtn.addEventListener('click', () => {
+        todoModal.close();
+        todoForm.reset();
+    })
+
+    submitTodoModalBtn.addEventListener('click', () => {
+        createNewTodo();
+        displayTodo();
+        todoForm.reset();
+    })
+
+    function createNewTodo() {
+        const newTodoItem = {};
+        const todoTitle = document.querySelector('#todoTitle');
+        const todoDescription = document.querySelector('#todoDescription');
+        const todoDate = document.querySelector('#todoDate');
+        const todoPriority = document.querySelector('#todoPriority');
+
+        newTodoItem.title = todoTitle.value;
+        newTodoItem.description = todoDescription.value;
+        newTodoItem.date = todoDescription.value;
+        newTodoItem.priority = todoPriority.value;
+        newTodoItem.project = activeProject;
+
+        todo.createTodoItem(newTodoItem);
     }
 }

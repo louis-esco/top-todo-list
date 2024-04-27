@@ -15,7 +15,6 @@ header {
     background-color: #1d4ed8;
     color: white;
     font-weight: bold;
-    font-size: 2rem;
     grid-column: 1/3;
     display: flex;
     align-items: center;
@@ -55,4 +54,27 @@ nav {
 
 .navItem svg {
     padding-top: 4px;
+}
+
+main {
+    padding: 15px 100px 40px 40px;
+    background-color: #f3f4f6;
+    font-size: 1.3rem;
+}
+
+.addTodoBtn {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 5px 15px;
+    width: 100%;
+}
+
+.addTodoBtn:hover {
+    background-color: #ffffff;
+    cursor: pointer;
 }
