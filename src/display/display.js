@@ -13,14 +13,27 @@ export default function displayList() {
     const todoForm = document.querySelector('.todoForm');
     const closeModalBtn = document.querySelector('.closeModalBtn');
     const submitTodoModalBtn = document.querySelector('.submitTodoModal');
+    const defaultProj = document.querySelector('.projItemDefault');
     let activeProject = 'default';
+
+    function selectedItem(activeSelection) {
+        const projItems = document.querySelectorAll('.projItem');
+        for (let item of projItems) {
+            item.classList.remove('selected');
+        }
+        activeSelection.classList.add('selected');
+    };
+
+    defaultProj.addEventListener('click', () => {
+        selectedItem(defaultProj);
+    })
 
     function displayProjects() {
         const projects = todo.getProjects();
         myProjects.textContent = "";
 
         for (let proj of projects) {
-            const projItem = document.createElement('div');
+            const projItem = document.createElement('button');
             projItem.classList.add('projItem');
 
             const projItemLeft = document.createElement('div');
@@ -42,6 +55,10 @@ export default function displayList() {
             projItem.appendChild(projItemLeft);
             projItem.appendChild(projItemRight);
             myProjects.appendChild(projItem);
+
+            projItem.addEventListener('click', () => {
+                selectedItem(projItem);
+            })
 
             projItemRight.addEventListener('click', () => {
                 todo.deleteProject(proj.id);
@@ -146,4 +163,7 @@ export default function displayList() {
 
         todo.createTodoItem(newTodoItem);
     }
+
+
+
 }
