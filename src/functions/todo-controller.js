@@ -30,7 +30,7 @@ export default function todoController() {
     }
 
     function getTodoItems(project) {
-        if (project !== undefined) {
+        if (project !== 'default') {
             const filteredTodos = myTodos.filter(todo => todo.project === project)
             console.log(filteredTodos);
             return filteredTodos;

@@ -26,6 +26,8 @@ export default function displayList() {
 
     defaultProj.addEventListener('click', () => {
         selectedItem(defaultProj);
+        activeProject = 'default';
+        displayTodo(activeProject);
     })
 
     function displayProjects() {
@@ -58,6 +60,8 @@ export default function displayList() {
 
             projItem.addEventListener('click', () => {
                 selectedItem(projItem);
+                activeProject = proj.name;
+                displayTodo(proj.name);
             })
 
             projItemRight.addEventListener('click', () => {
@@ -106,7 +110,7 @@ export default function displayList() {
     });
 
     function displayTodo(project) {
-        const todos = todo.getTodoItems();
+        const todos = todo.getTodoItems(project);
         myTodos.textContent = "";
 
         for (let td of todos) {
@@ -128,7 +132,7 @@ export default function displayList() {
 
             todoItemRight.addEventListener('click', () => {
                 todo.deleteTodoItem(td.id);
-                displayTodo();
+                displayTodo(activeProject);
             })
         }
     }
@@ -144,7 +148,7 @@ export default function displayList() {
 
     submitTodoModalBtn.addEventListener('click', () => {
         createNewTodo();
-        displayTodo();
+        displayTodo(activeProject);
         todoForm.reset();
     })
 
