@@ -184,10 +184,29 @@ export default function displayList() {
         todo.createTodoItem(newTodoItem);
     }
 
-    function displayTodoDetails(todoId) {
-        const myTodo = todo.getTodoItem(todoId);
+    function resetTodoDetails() {
+        todoDetailsTitle.textContent = "";
+        todoDetailsDesc.textContent = "";
+        todoDetailsDate.textContent = "";
+        todoDetailsPrio.textContent = "";
 
         todoDetailsActions.textContent = ""
+    }
+
+    function displayTodoDetails(todoId) {
+        resetTodoDetails();
+
+        const myTodo = todo.getTodoItem(todoId);
+
+        const todoEdit = document.createElement('button');
+        todoEdit.textContent = "Edit todo";
+        todoEdit.classList.add('editTodo');
+        todoDetailsActions.appendChild(todoEdit);
+
+        todoEdit.addEventListener('click', () => {
+            editTodoDetails(myTodo);
+        })
+
         const todoDelete = document.createElement('button');
         todoDelete.textContent = "Delete todo";
         todoDelete.classList.add('deleteTodo');
@@ -205,6 +224,40 @@ export default function displayList() {
         todoDetailsPrio.textContent = myTodo.priority;
     }
 
+    function editTodoDetails(item) {
+        resetTodoDetails();
+
+        const todoTitleInput = document.createElement('input');
+        todoTitleInput.value = item.title;
+        const todoDescInput = document.createElement('input');
+        todoDescInput.value = item.description;
+        const todoDateInput = document.createElement('input');
+        todoDateInput.type = "date";
+        todoDateInput.value = item.dueDate;
+        const todoPrioInput = document.createElement('input');
+        todoPrioInput.value = item.priority;
+
+        todoDetailsTitle.appendChild(todoTitleInput);
+        todoDetailsDesc.appendChild(todoDescInput);
+        todoDetailsDate.appendChild(todoDateInput);
+        todoDetailsPrio.appendChild(todoPrioInput);
+
+        const saveChangesBtn = document.createElement('button');
+        saveChangesBtn.classList.add('editTodo');
+        saveChangesBtn.textContent = "Save changes";
+        todoDetailsActions.appendChild(saveChangesBtn);
+
+        saveChangesBtn.addEventListener('click', () => {
+            const newTitle = todoTitleInput.value;
+            const newDesc = todoDescInput.value;
+            const newDate = todoDateInput.value;
+            const newPrio = todoPrioInput.value;
+            const newTodo = { title: newTitle, description: newDesc, dueDate: newDate, priority: newPrio }
+
+            todo.editTodoItem(item.id, newTodo);
+            displayTodoDetails(item.id);
+        })
+    }
 
     displayProjects();
     displayTodos('default');

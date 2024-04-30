@@ -64,6 +64,11 @@ export default function todoController() {
         return myStorage.getArray('myTodos')[tdIndex];
     }
 
+    function editTodoItem(todoId, newItem) {
+        const tdIndex = getTodoIndex(todoId);
+        myStorage.editItem('myTodos', tdIndex, newItem);
+    }
+
     function deleteTodoItem(itemId) {
         const todoIndex = getTodoIndex(itemId);
         myStorage.deleteItem('myTodos', todoIndex);
@@ -76,6 +81,7 @@ export default function todoController() {
         createTodoItem,
         getTodoItems,
         getTodoItem,
+        editTodoItem,
         deleteTodoItem,
     }
 }

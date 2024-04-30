@@ -55,17 +55,20 @@ form input {
 }
 
 .submitTodoModal,
-.deleteTodo {
+.deleteTodo,
+.editTodo {
     background-color: #1d4ed8;
     color: white;
     border: none;
     padding: 5px 15px;
     border-radius: 5px;
     font-size: 1rem;
+    margin-left: 10px;
 }
 
 .submitTodoModal:hover,
-.deleteTodo:hover {
+.deleteTodo:hover,
+.editTodo:hover {
     cursor: pointer;
 }
 

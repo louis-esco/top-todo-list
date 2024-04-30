@@ -16,6 +16,16 @@ export default function storageManager() {
         localStorage.setItem(array, JSON.stringify(myArray));
     }
 
+    function editItem(array, itemIndex, newItem) {
+        const myArray = getArray(array);
+        myArray[itemIndex].title = newItem.title;
+        myArray[itemIndex].description = newItem.description;
+        myArray[itemIndex].dueDate = newItem.dueDate;
+        myArray[itemIndex].priority = newItem.priority;
+
+        localStorage.setItem(array, JSON.stringify(myArray));
+    }
+
     function deleteItem(array, index) {
         const myArray = getArray(array);
         myArray.splice(index, 1);
@@ -26,7 +36,8 @@ export default function storageManager() {
         populateStorage,
         addItem,
         getArray,
-        deleteItem
+        deleteItem,
+        editItem
     }
 }
 
