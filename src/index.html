@@ -59,7 +59,7 @@
             <dialog class="todoFormModal">
                 <div class="modalHeader">
                     <div class="modalTitle">Create new todo</div>
-                    <button class="closeModalBtn"><svg xmlns="http://www.w3.org/2000/svg" height="26"
+                    <button class="closeFormModalBtn"><svg xmlns="http://www.w3.org/2000/svg" height="26"
                             viewBox="0 -960 960 960" width="26">
                             <path fill="#000000"
                                 d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
@@ -85,6 +85,33 @@
                     </div>
                     <button formmethod="dialog" class="submitTodoModal">Create</button>
                 </form>
+
+            </dialog>
+
+            <dialog class="todoDetailsModal">
+                <div class="modalHeader">
+                    <div class="modalTitle">Todo details</div>
+                    <button class="closeDetailsModalBtn"><svg xmlns="http://www.w3.org/2000/svg" height="26"
+                            viewBox="0 -960 960 960" width="26">
+                            <path fill="#000000"
+                                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                        </svg></button>
+                </div>
+
+                <div class="todoDetails">
+                    <div class="todoProperty">Title:</div>
+                    <div class="todoDetailsTitle"></div>
+                    <div class="todoProperty">Description:</div>
+                    <div class="todoDetailsDesc"></div>
+                    <div class="todoProperty">Due date:</div>
+                    <div class="todoDetailsDate"></div>
+                    <div class="todoProperty">Priority:</div>
+                    <div class="todoDetailsPrio"></div>
+                </div>
+
+                <div class="todoDetailsActions">
+
+                </div>
 
             </dialog>
 

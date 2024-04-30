@@ -9,11 +9,18 @@ export default function displayList() {
     const myTodos = document.querySelector('.myTodos');
     const newProjectBtn = document.querySelector('.newProjectBtn');
     const newTodoBtn = document.querySelector('.addTodoBtn');
-    const todoModal = document.querySelector('.todoFormModal');
+    const todoFormModal = document.querySelector('.todoFormModal');
     const todoForm = document.querySelector('.todoForm');
-    const closeModalBtn = document.querySelector('.closeModalBtn');
+    const closeFormModalBtn = document.querySelector('.closeFormModalBtn');
     const submitTodoModalBtn = document.querySelector('.submitTodoModal');
     const defaultProj = document.querySelector('.projItemDefault');
+    const todoDetailsModal = document.querySelector('.todoDetailsModal');
+    const todoDetailsTitle = document.querySelector('.todoDetailsTitle');
+    const todoDetailsDesc = document.querySelector('.todoDetailsDesc');
+    const todoDetailsDate = document.querySelector('.todoDetailsDate');
+    const todoDetailsPrio = document.querySelector('.todoDetailsPrio');
+    const todoDetailsActions = document.querySelector('.todoDetailsActions');
+    const closeDetailsModalBtn = document.querySelector('.closeDetailsModalBtn');
     let activeProject = 'default';
 
     function selectedItem(activeSelection) {
@@ -130,6 +137,11 @@ export default function displayList() {
             todoItem.appendChild(todoItemRight);
             myTodos.appendChild(todoItem);
 
+            todoItem.addEventListener('click', () => {
+                todoDetailsModal.showModal()
+                displayTodoDetails(td.id);
+            })
+
             todoItemRight.addEventListener('click', () => {
                 todo.deleteTodoItem(td.id);
                 displayTodos(activeProject);
@@ -138,12 +150,16 @@ export default function displayList() {
     }
 
     newTodoBtn.addEventListener('click', () => {
-        todoModal.showModal();
+        todoFormModal.showModal();
     })
 
-    closeModalBtn.addEventListener('click', () => {
-        todoModal.close();
+    closeFormModalBtn.addEventListener('click', () => {
+        todoFormModal.close();
         todoForm.reset();
+    })
+
+    closeDetailsModalBtn.addEventListener('click', () => {
+        todoDetailsModal.close();
     })
 
     submitTodoModalBtn.addEventListener('click', () => {
@@ -161,11 +177,32 @@ export default function displayList() {
 
         newTodoItem.title = todoTitle.value;
         newTodoItem.description = todoDescription.value;
-        newTodoItem.date = todoDescription.value;
+        newTodoItem.dueDate = todoDate.value;
         newTodoItem.priority = todoPriority.value;
         newTodoItem.project = activeProject;
 
         todo.createTodoItem(newTodoItem);
+    }
+
+    function displayTodoDetails(todoId) {
+        const myTodo = todo.getTodoItem(todoId);
+
+        todoDetailsActions.textContent = ""
+        const todoDelete = document.createElement('button');
+        todoDelete.textContent = "Delete todo";
+        todoDelete.classList.add('deleteTodo');
+        todoDetailsActions.appendChild(todoDelete);
+
+        todoDelete.addEventListener('click', () => {
+            todo.deleteTodoItem(todoId);
+            todoDetailsModal.close();
+            displayTodos(activeProject);
+        })
+
+        todoDetailsTitle.textContent = myTodo.title;
+        todoDetailsDesc.textContent = myTodo.description;
+        todoDetailsDate.textContent = myTodo.dueDate;
+        todoDetailsPrio.textContent = myTodo.priority;
     }
 
 
