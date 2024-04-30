@@ -22,6 +22,11 @@ export default function todoController() {
 
     function deleteProject(projectId) {
         const pIndex = myStorage.getArray('myProjects').map(p => p.id).indexOf(projectId);
+        deleteProjectTodos(pIndex);
+        myStorage.deleteItem('myProjects', pIndex);
+    }
+
+    function deleteProjectTodos(pIndex) {
         const todos = myStorage.getArray('myTodos');
 
         const tdIndexes = todos.reduce((acc, curr, index) => {
@@ -34,8 +39,6 @@ export default function todoController() {
         for (let td of tdIndexes) {
             myStorage.deleteItem('myTodos', td);
         }
-
-        myStorage.deleteItem('myProjects', pIndex);
     }
 
     function createTodoItem(item) {
