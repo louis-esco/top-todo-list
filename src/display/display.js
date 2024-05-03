@@ -120,7 +120,7 @@ export default function displayList() {
     });
 
     function displayTodos(project) {
-        const todos = todo.getTodoItems(project);
+        const todos = todo.getProjectTodos(project);
         myTodos.textContent = "";
 
         for (let td of todos) {
