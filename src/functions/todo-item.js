@@ -11,7 +11,24 @@ export default class todoItem {
         this.id = uuidv4();
     }
 
+    setTitle(title) {
+        this.title = title;
+    }
+
+    setDesc(desc) {
+        this.description = desc;
+    }
+
+    setDueDate(dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    setPriority(priority) {
+        this.priority = priority;
+    }
+
     markDone() {
         this.done = true;
     }
+
 }
