@@ -13,55 +13,55 @@ export default function todoController() {
 
     function createProject(projectName) {
         const newProject = new project(projectName);
-        myStorage.addItem('myProjects', newProject);
+        myStorage.addProject(newProject);
     }
 
     function getProjects() {
-        return myStorage.getArray('myProjects');
+        return myStorage.getProjects();
     }
 
     function deleteProject(projectId) {
-        const pIndex = myStorage.getArray('myProjects').map(p => p.id).indexOf(projectId);
+        const pIndex = myStorage.getProjects().map(p => p.id).indexOf(projectId);
         deleteProjectTodos(pIndex);
-        myStorage.deleteItem('myProjects', pIndex);
+        myStorage.deleteProject(pIndex);
     }
 
     function deleteProjectTodos(pIndex) {
-        const todos = myStorage.getArray('myTodos');
+        const todos = myStorage.getTodos();
 
         const tdIndexes = todos.reduce((acc, curr, index) => {
-            if (curr.project === myStorage.getArray('myProjects')[pIndex].name) {
+            if (curr.project === myStorage.getProjects()[pIndex].name) {
                 acc.push(index);
             }
             return acc;
         }, []);
 
         for (let td of tdIndexes) {
-            myStorage.deleteItem('myTodos', td);
+            myStorage.deleteTodo(td);
         }
     }
 
     function createTodoItem(item) {
         const newTodo = new todoItem(item.title, item.description, item.dueDate, item.priority, item.project);
-        myStorage.addItem('myTodos', newTodo);
+        myStorage.addTodo(newTodo);
     }
 
     function getTodoIndex(todoId) {
-        return myStorage.getArray('myTodos').map(todo => todo.id).indexOf(todoId);
+        return myStorage.getTodos().map(todo => todo.id).indexOf(todoId);
     }
 
     function getTodoItems(project) {
         if (project !== 'default') {
-            const filteredTodos = myStorage.getArray('myTodos').filter(todo => todo.project === project)
+            const filteredTodos = myStorage.getTodos().filter(todo => todo.project === project)
             return filteredTodos;
         } else {
-            return myStorage.getArray('myTodos');
+            return myStorage.getTodos();
         }
     }
 
     function getTodoItem(todoId) {
         const tdIndex = getTodoIndex(todoId);
-        return myStorage.getArray('myTodos')[tdIndex];
+        return myStorage.getTodos()[tdIndex];
     }
 
     function editTodoItem(todoId, newItem) {
@@ -71,7 +71,7 @@ export default function todoController() {
 
     function deleteTodoItem(itemId) {
         const todoIndex = getTodoIndex(itemId);
-        myStorage.deleteItem('myTodos', todoIndex);
+        myStorage.deleteTodo(todoIndex);
     }
 
     return {
