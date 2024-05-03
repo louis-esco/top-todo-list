@@ -65,7 +65,7 @@ export default function displayList() {
             projItem.appendChild(projItemRight);
             myProjects.appendChild(projItem);
 
-            projItem.addEventListener('click', () => {
+            projItemLeft.addEventListener('click', () => {
                 selectedItem(projItem);
                 activeProject = proj.name;
                 displayTodos(proj.name);
@@ -74,6 +74,9 @@ export default function displayList() {
             projItemRight.addEventListener('click', () => {
                 todo.deleteProject(proj.id);
                 displayProjects();
+                activeProject = 'default';
+                selectedItem(defaultProj);
+                displayTodos('default');
             })
         }
     }
@@ -124,6 +127,7 @@ export default function displayList() {
             const todoItem = document.createElement('div');
             todoItem.classList.add('todoItem');
             const todoItemLeft = document.createElement('div');
+            todoItemLeft.classList.add('todoItemLeft');
             const todoItemRight = document.createElement('button');
 
             const todoTitle = document.createElement('div');
@@ -137,7 +141,7 @@ export default function displayList() {
             todoItem.appendChild(todoItemRight);
             myTodos.appendChild(todoItem);
 
-            todoItem.addEventListener('click', () => {
+            todoItemLeft.addEventListener('click', () => {
                 todoDetailsModal.showModal()
                 displayTodoDetails(td.id);
             })
