@@ -1,5 +1,5 @@
 # top-todo-list
-Link: https://louis-esco.github.io/top-todo-list/
+Link: https://louis-esco.github.io/top-todo-list/ <br>
 Improvements: 
 - Storage.js and todo-controller.js could be merged together to avoid redundancy (implemented todo-controller before dealing with localStorage)
 - CSS classes and declarations could be improved for readability
