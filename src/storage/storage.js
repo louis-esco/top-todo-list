@@ -40,6 +40,12 @@ export default function storageManager() {
         localStorage.setItem('myTodos', JSON.stringify(todosList));
     }
 
+    function markTodoDone(itemIndex) {
+        const todosList = getTodos()
+        todosList[itemIndex].markDone();
+        localStorage.setItem('myTodos', JSON.stringify(todosList));
+    }
+
     function deleteProject(index) {
         const projectsList = getProjects();
         projectsList.splice(index, 1);
@@ -60,7 +66,8 @@ export default function storageManager() {
         getTodos,
         deleteProject,
         deleteTodo,
-        editTodo
+        editTodo,
+        markTodoDone
     }
 }
 
