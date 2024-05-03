@@ -1,3 +1,5 @@
+import todoItem from "../functions/todo-item";
+
 export default function storageManager() {
 
     function populateStorage(projects, todos) {
@@ -11,9 +13,10 @@ export default function storageManager() {
     }
 
     function getTodos() {
-        return JSON.parse(localStorage.getItem('myTodos'));
+        let todosList = JSON.parse(localStorage.getItem('myTodos'));
+        todosList = todosList.map((td) => Object.assign(new todoItem(), td))
+        return todosList;
     }
-
 
     function addProject(project) {
         const projectsList = getProjects();
@@ -27,14 +30,14 @@ export default function storageManager() {
         localStorage.setItem('myTodos', JSON.stringify(todosList));
     }
 
-    function editItem(array, itemIndex, newItem) {
-        const myArray = getTodos();
-        myArray[itemIndex].title = newItem.title;
-        myArray[itemIndex].description = newItem.description;
-        myArray[itemIndex].dueDate = newItem.dueDate;
-        myArray[itemIndex].priority = newItem.priority;
+    function editTodo(itemIndex, newItem) {
+        const todosList = getTodos();
+        todosList[itemIndex].setTitle(newItem.title);
+        todosList[itemIndex].setDesc(newItem.description);
+        todosList[itemIndex].setDueDate(newItem.dueDate);
+        todosList[itemIndex].setPriority(newItem.priority);
 
-        localStorage.setItem(array, JSON.stringify(myArray));
+        localStorage.setItem('myTodos', JSON.stringify(todosList));
     }
 
     function deleteProject(index) {
@@ -57,7 +60,7 @@ export default function storageManager() {
         getTodos,
         deleteProject,
         deleteTodo,
-        editItem
+        editTodo
     }
 }
 
