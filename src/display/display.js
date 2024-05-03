@@ -127,7 +127,9 @@ export default function displayList() {
             const todoItem = document.createElement('div');
             todoItem.classList.add('todoItem');
             const todoItemLeft = document.createElement('div');
-            todoItemLeft.classList.add('todoItemLeft');
+            todoItemLeft.classList.add('circle');
+            const todoItemCenter = document.createElement('div');
+            todoItemCenter.classList.add('todoItemCenter');
             const todoItemRight = document.createElement('button');
 
             const todoTitle = document.createElement('div');
@@ -135,13 +137,20 @@ export default function displayList() {
             const close = new Image();
             close.src = closeIcon;
 
-            todoItemLeft.appendChild(todoTitle);
+            todoItemCenter.appendChild(todoTitle);
             todoItemRight.appendChild(close);
             todoItem.appendChild(todoItemLeft);
+            todoItem.appendChild(todoItemCenter);
             todoItem.appendChild(todoItemRight);
             myTodos.appendChild(todoItem);
 
             todoItemLeft.addEventListener('click', () => {
+                todo.markTodoDone(td.id);
+                todo.deleteTodoItem(td.id);
+                displayTodos(activeProject);
+            })
+
+            todoItemCenter.addEventListener('click', () => {
                 todoDetailsModal.showModal()
                 displayTodoDetails(td.id);
             })

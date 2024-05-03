@@ -19,7 +19,7 @@
 
 .projItemLeft,
 .projBtnLeft,
-.todoItemLeft {
+.todoItemCenter {
     display: flex;
     flex: 1;
     gap: 10px;
@@ -106,6 +106,7 @@ input {
     align-items: center;
     padding: 5px 15px;
     border-radius: 5px;
+    gap: 5px;
 }
 
 .todoItem:hover {
@@ -140,4 +141,12 @@ input {
 .todoProperty {
     font-weight: 600;
     justify-self: flex-end;
+}
+
+.circle {
+    height: 17px;
+    width: 17px;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 50%;
 }
