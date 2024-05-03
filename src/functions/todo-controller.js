@@ -50,9 +50,9 @@ export default function todoController() {
         return myStorage.getTodos().map(todo => todo.id).indexOf(todoId);
     }
 
-    function getTodoItems(project) {
+    function getProjectTodos(project) {
         if (project !== 'default') {
-            const filteredTodos = myStorage.getTodos().filter(todo => todo.project === project)
+            const filteredTodos = myStorage.getTodos().filter(todo => todo.project === project);
             return filteredTodos;
         } else {
             return myStorage.getTodos();
@@ -66,7 +66,7 @@ export default function todoController() {
 
     function editTodoItem(todoId, newItem) {
         const tdIndex = getTodoIndex(todoId);
-        myStorage.editItem('myTodos', tdIndex, newItem);
+        myStorage.editTodo(tdIndex, newItem);
     }
 
     function deleteTodoItem(itemId) {
@@ -79,7 +79,7 @@ export default function todoController() {
         getProjects,
         deleteProject,
         createTodoItem,
-        getTodoItems,
+        getProjectTodos,
         getTodoItem,
         editTodoItem,
         deleteTodoItem,
